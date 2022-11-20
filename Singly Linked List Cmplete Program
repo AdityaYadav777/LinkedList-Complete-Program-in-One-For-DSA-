@@ -1,0 +1,200 @@
+#include <stdio.h>
+#include <stdlib.h>
+int i = 0;11
+int size;
+struct node   //create struct for Data  and next nodes
+{
+    int data;
+    struct node *next;
+};
+
+struct node *Add(struct node *head, int s)   //Adding Function
+{
+    struct node *ptr = head;
+    for (int j = 0; j < size - 1; j++)
+    {
+        struct node *tem = (struct node *)malloc(sizeof(struct node));
+        printf("enter the %dst Number: ", j + 2);
+        scanf("%d", &tem->data);
+        ptr->next = tem;
+        tem->next = NULL;
+        ptr = tem;
+    }
+    return head;
+}
+
+struct node *iDel(struct node *head)  //Deletion Function
+{
+    struct node *h = head;
+    struct node *q = head->next;
+    int n;
+    do
+    {
+        printf("1: Delete At Beginnig\n2: Delete At Point\n3: Delete At Last\n4: Exit");
+        scanf("%d", &n);
+        switch (n)
+        {
+        case 1:
+
+            head = head->next;
+            return head;
+            break;
+
+        case 2:
+
+            int index;
+            printf("enter the Index Want To Delete: ");
+            scanf("%d", &index);
+
+            while (i != index - 2)
+            {
+                h = h->next;
+                q = q->next;
+                i++;
+            }
+            h->next = q->next;
+
+            return head;
+            break;
+
+        case 3:
+
+            while (q->next != NULL)
+            {
+                h = h->next;
+                q = q->next;
+            }
+
+            h->next = q->next;
+            q->next = NULL;
+            free(q);
+            return head;
+        }
+
+    } while (n != 4);
+}
+
+void print(struct node *head)  //printg nodes function
+{
+
+    int num = 0;
+    struct node *t = head;
+    printf("\nData:- \n\n");
+    while (t != NULL)
+    {
+
+        printf("%d ", t->data);
+        t = t->next;
+        num++;
+    }
+    printf("\n\n");
+    printf("Total Number of Nodes = %d\n\n", num);
+}
+
+struct node *add(struct node *head)
+{
+    struct node *y = (struct node *)malloc(sizeof(struct node));
+    struct node *t = (struct node *)malloc(sizeof(struct node));
+    struct node *h = head;
+    struct node *ptr = head->next;
+    int k = 0;
+    int n;
+    do
+    {
+
+        printf("1: Add In Beginning\n2: Add At Index\n3: Add in Last\n0: exit");
+        scanf("%d", &n);
+
+        switch (n)
+        {
+
+        case 1:
+
+            printf("Enter the Number You Want Add in Beginning: ");
+            scanf("%d", &t->data);
+            t->next = head;
+            head = t;
+            return head;
+            break;
+        case 2:
+            int index;
+            int data;
+
+            printf("Enter the index You want to Add A number: ");
+            scanf("%d", &index);
+            printf("enter the Number You Want to Add: ");
+            scanf("%d", &data);
+            while (k != index - 1)
+            {
+
+                h = h->next;
+                k++;
+            }
+
+            y->data = data;
+            y->next = h->next;
+            h->next = y;
+            return head;
+            break;
+
+        case 3:
+
+            while (h->next != NULL)
+            {
+                h = h->next;
+            }
+            printf("Enter the Number you Want Add in Last: ");
+            scanf("%d", &t->data);
+            h->next = t;
+            t->next = NULL;
+            return head;
+            break;
+        }
+
+    } while (n == 0);
+}
+
+int main()
+{
+    struct node *head = (struct node *)malloc(sizeof(struct node));
+
+    char n;
+    while (n != '0')
+    {
+
+        printf("*****************LINKED LIST COMPLETE PROGRAM***********************\n\n");
+
+        printf("1: Insert\n2: Delete\n3: Add\n4: Show\n0: Exit\n\nselect: ");
+        scanf(" %c", &n);
+        switch (n)
+        {
+        case '1':
+
+            printf("enter the size of nodes: ");
+            scanf("%d", &size);
+            printf("enter the 1st Numebr: ");
+            scanf("%d", &head->data);
+            head->next = NULL;
+            head = Add(head, size);
+
+            break;
+
+        case '2':
+            head = iDel(head);
+            break;
+
+        case '4':
+            print(head);
+            break;
+
+        case '3':
+            head = add(head);
+            break;
+        default:
+            printf("you pressed invaled key:\n\n");
+            system("cls");
+            break;
+        }
+    }
+}
+                                  
